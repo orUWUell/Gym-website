@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.utils.encoding import force_bytes, force_str
@@ -12,10 +13,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from users.tokens import account_activation_token
 
 
-# Create your views here.
-
-def login_view(request):
-    return render(request, 'users/login.html')
+@login_required
+def profile_view(request):
+    return render(request, 'users/profile.html')
 
 
 def register(request):
