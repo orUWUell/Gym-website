@@ -33,15 +33,26 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'chat',
     'main',
-    'users'
+    'users',
+
 ]
+
+ASGI_APPLICATION = 'djangoProject4.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default':{
+        'BACKEND':'channels.layers.InMemoryChannelLayer'
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -54,6 +65,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'djangoProject4.urls'
+
+
 
 TEMPLATES = [
     {
@@ -141,3 +154,15 @@ EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 14400
 
 LOGIN_REDIRECT_URL = reverse_lazy("profile")
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gym_db',
+        'USER': 'justme',
+        'PASSWORD': 'h1h12h13',
+        'host': '127.0.0.1',
+    }
+}
