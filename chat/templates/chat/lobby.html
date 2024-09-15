@@ -14,11 +14,11 @@
         <input type="text" name="message" id="message"/>
         <input type="submit">
     </form>
-    
+
+    <h1>{{ room }}</h1>
     {% for i in messages %}
-        <p>{{ i.text }}</p>
+        <p>{{ i }}</p>
     {% endfor %}
-    
 
     <div id="messages"></div>
 
@@ -53,7 +53,7 @@
         
         $.ajax({
             type: "POST",
-            url: "{% url 'create' %}",
+            url: "{% url 'create' room.id %}",
             data: {
                 message: $('#message').val(),
                 csrf

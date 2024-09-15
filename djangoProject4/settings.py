@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'djangoProject4.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gym_db',
+        'NAME': 'my_database',
         'USER': 'justme',
         'PASSWORD': 'h1h12h13',
         'host': '127.0.0.1',
@@ -157,12 +157,3 @@ LOGIN_REDIRECT_URL = reverse_lazy("profile")
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gym_db',
-        'USER': 'justme',
-        'PASSWORD': 'h1h12h13',
-        'host': '127.0.0.1',
-    }
-}

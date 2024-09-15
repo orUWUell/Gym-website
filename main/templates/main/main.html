@@ -3,5 +3,10 @@
     Главная
 {% endblock %}
 {% block content %}
+    {% for i in rooms %}
+        <article class="news-item">
+            <h2 href="">{{ i.name }}</h2>
+        </article>
 
+    {% endfor %}
 {% endblock %}
