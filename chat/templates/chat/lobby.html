@@ -19,12 +19,13 @@
     {% for i in messages %}
         <p>{{ i }}</p>
     {% endfor %}
-
+    {{ room.id|json_script:"room-id" }}
     <div id="messages"></div>
 
     <script type="text/javascript">
-        
-        let url = `ws://${window.location.host}/ws/socket-server/`
+        const roomId = JSON.parse(document.getElementById('room-id').textContent)
+
+        let url = `ws://${window.location.host}/ws/chat/${roomId}/`
 
         const chatSocket = new WebSocket(url)
 
