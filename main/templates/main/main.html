@@ -5,7 +5,10 @@
 {% block content %}
     {% for i in rooms %}
         <article class="news-item">
-            <h2 href="">{{ i.name }}</h2>
+            <h2>{{ i.name }}</h2>
+            <p>{{ i.question|slice:':255' }}...</p>
+            <p>{{ i.creator }}</p>
+            <a href="{% url 'chat' i.id %}">читать далее</a>
         </article>
 
     {% endfor %}

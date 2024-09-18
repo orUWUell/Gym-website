@@ -1,0 +1,15 @@
+{% extends 'base_templates/base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+    {% csrf_token %}
+    {{ form.name }}<br>{{ form.question }}
+    {% if errors %}
+        <p>Заполните форму правильно</p>
+    {% endif %}
+    <button type="submit">ОК</button>
+    </form>
+{% endblock %}

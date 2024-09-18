@@ -10,7 +10,6 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
 
         self.room_id = self.scope['path'].split('/')[-2]
-        print(self.room_id)
 
         async_to_sync(self.channel_layer.group_add)(
             self.room_id,
@@ -32,8 +31,8 @@ class ChatConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.group_send)(
             self.room_id,
             {
-                'type':'chat_message',
-                'message':message
+                'type': 'chat_message',
+                'message': message
             }
         )
 
@@ -41,6 +40,6 @@ class ChatConsumer(WebsocketConsumer):
         message = event['message']
 
         self.send(text_data=json.dumps({
-            'type':'chat',
-            'message':message
+            'type': 'chat',
+            'message': message
         }))

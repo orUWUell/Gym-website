@@ -20,6 +20,7 @@ import main.urls
 import users.urls
 import chat.urls
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(main.urls)),

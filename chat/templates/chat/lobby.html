@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Lobby</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-
-</head>
-<body>
+{% extends 'base_templates/base.html' %}
+{% block title %}
+{% endblock %}
+{% block content %}
     <h1>Lets chat!</h1>
     {% csrf_token %}
     <form id="form" method="post" action="create">
@@ -16,7 +10,10 @@
     </form>
 
     <h1>{{ room }}</h1>
+    <h2>{{ room.question }}</h2>
+    <h3>{{ room.creator }}</h3>
     {% for i in messages %}
+        <p>{{ i.author.username }}</p>
         <p>{{ i }}</p>
     {% endfor %}
     {{ room.id|json_script:"room-id" }}
@@ -37,6 +34,7 @@
                 let messages = document.getElementById('messages')
 
                 messages.insertAdjacentHTML('beforeend', `<div>
+                                        <p>{{ user.username }}</p>
                                         <p>${data.message}</p>
                                     </div>`)
             }
@@ -55,12 +53,11 @@
         
         $.ajax({
             type: "POST",
-            url: "{% url 'create' room.id %}",
+            url: "{% url 'chat' room.id %}",
             data: {
                 message: $('#message').val(),
                 csrf
         }})
 
     </script>
-</body>
-</html>
+{% endblock %}

@@ -42,8 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'chat',
     'main',
-    'users',
-
+    'users'
 ]
 
 ASGI_APPLICATION = 'djangoProject4.asgi.application'
