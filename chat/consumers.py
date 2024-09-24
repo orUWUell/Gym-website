@@ -1,5 +1,8 @@
 import json
 from datetime import datetime
+
+from django.contrib.auth.decorators import login_required
+
 from .models import Message, Room
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync

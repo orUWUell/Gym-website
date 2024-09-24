@@ -78,3 +78,8 @@ def activate(request, uidb64, token):
         messages.error(request, "Activation link is invalid!")
 
     return redirect('homepage')
+
+
+def update_profile(request, id):
+    user = get_user_model().objects.get(pk=id)
+    return render(request, 'users/update.html', {'user': user})

@@ -6,7 +6,8 @@
 {% block content %}
     <form method="post">
     {% csrf_token %}
-    {{ form.name }}<br>{{ form.question }}
+    {{ form.name }}<br>
+        {{ form.question }}
     {% if errors %}
         <p>Заполните форму правильно</p>
     {% endif %}

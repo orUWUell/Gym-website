@@ -6,7 +6,10 @@
 {% block content %}
     <form method="POST">
     {% csrf_token %}
-     {{ form }}
+     <p>Имя пользователя</p>{{ form.username }}<br>
+     <p>Электронная почта</p>{{ form.email }}<br>
+     <p>Пароль</p>{{ form.password1 }}<br>
+     <p>Подтверждение пароля</p>{{ form.password2 }}<br>
     <button class="btn btn-outline-info" type="submit">Sign Up</button>
     </form>
 
