@@ -2,7 +2,8 @@
 {% block title %}
 {% endblock %}
 {% block content %}
-    <h1>Lets chat!</h1>
+    {% load static %}
+     <link rel="stylesheet" href="{% static 'chat/css/chat.css'%}" type="text/css">
     {% csrf_token %}
     <form id="form" method="post" action="create">
         <input type="text" name="message" id="message"/>
@@ -10,7 +11,7 @@
     </form>
 
     <h1>{{ room }}</h1>
-    <h2>{{ room.question }}</h2>
+    <p>{{ room.question }}</p>
     <h3>{{ room.creator }}</h3>
     {% for i in messages %}
         <p>{{ i.author.username }}</p>

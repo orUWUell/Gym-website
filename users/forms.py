@@ -22,4 +22,4 @@ class UserRegistrationForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email']
+        fields = ['username', 'profile_picture']
