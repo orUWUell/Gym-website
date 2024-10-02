@@ -8,8 +8,7 @@
     <h1>Обновить</h1>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.username }}
-        {{ form.profile_picture }}
+        {{ form.as_p }}
     <button>Обновить</button>
     </form>
 {% endblock %}
