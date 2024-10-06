@@ -14,8 +14,10 @@
     <p>{{ room.question }}</p>
     <h3>{{ room.creator }}</h3>
     {% for i in messages %}
+        <div class="message">
         <p>{{ i.author.username }}</p>
         <p>{{ i }}</p>
+        </div>
     {% endfor %}
     {{ room.id|json_script:"room-id" }}
     <div id="messages"></div>

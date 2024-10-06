@@ -8,19 +8,23 @@
     <link rel="stylesheet" href="{% static 'base/base.css'%}" type="text/css">
 </head>
 <body>
-
-    <a href="{% url 'homepage' %}">Главная</a>
+<header class="site-header">
+    <ul id="navbar">
+    <li><a href="{% url 'homepage' %}">Главная</a></li>
     {% if user.is_authenticated %}
-    <a href="{% url 'profile' %}">Профиль</a>
-    <a href="{% url 'create' %}">Создать тему</a>    
+    <li><a href="{% url 'profile' %}">Профиль</a></li>
+    <li><a href="{% url 'create' %}">Создать тему</a></li>
         {% else %}
-        <a href="{% url 'register' %}">Регистрация</a>
-    <a href="{% url 'login' %}">Логин</a>
+        <li><a href="{% url 'register' %}">Регистрация</a></li>
+    <li><a href="{% url 'login' %}">Логин</a></li>
     {% endif %}
-    <form action="{% url 'search' %}" method="get">
+    <li><form action="{% url 'search' %}" method="get">
         <input type="text" type="search" name="q" placeholder="Поиск">
         <button type="submit">Найти</button>
-    </form>
+    </form></li>
+    </ul>
+</header>
+
     <div id="container">
         {% block content %}
     {% endblock %}
