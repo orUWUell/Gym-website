@@ -22,8 +22,10 @@
         <input type="text" name="message" id="message"/>
         <input type="submit">
     </form>
+    {{ request.user.username|json_script:"json-username" }}
     <script type="text/javascript">
         const roomId = JSON.parse(document.getElementById('room-id').textContent)
+        const userName = JSON.parse(document.getElementById('json-username').textContent);
 
         let url = `ws://${window.location.host}/ws/chat/${roomId}/`
 
@@ -35,9 +37,9 @@
 
             if(data.type === 'chat'){
                 let messages = document.getElementById('messages')
-
-                messages.insertAdjacentHTML('beforeend', `<div class='message'>
-                                        <a href="{% url 'profile' user.id %}">{{ user.username }}</a>
+                messages.insertAdjacentHTML('beforeend',
+                                    `<div class='message'>
+                                        <a href="{% url 'profile' user.id %}" id='now_message'>${data.author}</a>
                                         <p>${data.message}</p>
                                     </div>`)
             }
@@ -46,14 +48,14 @@
         let form = document.getElementById('form')
         form.addEventListener('submit', (e)=> {
             e.preventDefault()
-            let message = e.target.message.value 
+            let message = e.target.message.value
             chatSocket.send(JSON.stringify({
                 'message':message,
-                'chat_id': '1'
+                'username': userName
             }))
             form.reset()
         })
-        
+
         $.ajax({
             type: "POST",
             url: "{% url 'chat' room.id %}",
