@@ -5,25 +5,35 @@
     {% load static %}
      <link rel="stylesheet" href="{% static 'chat/css/chat.css'%}" type="text/css">
     {% csrf_token %}
-    <form id="form" method="post" action="create">
-        <input type="text" name="message" id="message"/>
-        <input type="submit">
-    </form>
+
 
     <h1>{{ room }}</h1>
     <p>{{ room.question }}</p>
     <h3>{{ room.creator }}</h3>
     {% for i in messages %}
-        <div class="message">
-        <p>{{ i.author.username }}</p>
-        <p>{{ i }}</p>
+        <div class="bubbleWrapper">
+        <div class="photo">
+            <p><img src="{{ i.author.profile_picture.url }}" width="150" height="150"></p>
         </div>
+		<div class="text_message">
+            <a href="{% url 'profile' i.author.id %}">{{ i.author.username }}</a>
+            <p>{{ i }}</p>
+
+        </div>
+        </div><span class="other">{{ i.date }}</span>
+         <hr>
     {% endfor %}
     {{ room.id|json_script:"room-id" }}
     <div id="messages"></div>
+    <form id="form" method="post" action="create">
+        <input type="text" name="message" id="message"/>
+        <input type="submit">
 
+    </form>
+    {{ request.user.username|json_script:"json-username" }}
     <script type="text/javascript">
         const roomId = JSON.parse(document.getElementById('room-id').textContent)
+        const userName = JSON.parse(document.getElementById('json-username').textContent);
 
         let url = `ws://${window.location.host}/ws/chat/${roomId}/`
 
@@ -35,9 +45,9 @@
 
             if(data.type === 'chat'){
                 let messages = document.getElementById('messages')
-
-                messages.insertAdjacentHTML('beforeend', `<div>
-                                        <p>{{ user.username }}</p>
+                messages.insertAdjacentHTML('beforeend',
+                                    `<div class='message'>
+                                        <a href="{% url 'profile' user.id %}" id='now_message'>${data.author}</a>
                                         <p>${data.message}</p>
                                     </div>`)
             }
@@ -46,14 +56,14 @@
         let form = document.getElementById('form')
         form.addEventListener('submit', (e)=> {
             e.preventDefault()
-            let message = e.target.message.value 
+            let message = e.target.message.value
             chatSocket.send(JSON.stringify({
                 'message':message,
-                'chat_id': '1'
+                'username': userName
             }))
             form.reset()
         })
-        
+
         $.ajax({
             type: "POST",
             url: "{% url 'chat' room.id %}",

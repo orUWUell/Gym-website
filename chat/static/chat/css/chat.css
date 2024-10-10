@@ -1,40 +1,33 @@
-body {
 
-}
-
-
-
-#form {
-    position: absolute;
-    bottom: 0;
-}
 
 .message {
-  float: left;
-  background: silver;
-  padding: 1em 1.5em;
-  border-radius: 1em;
-  position: relative;
-  line-height: 1.5em;
+  padding: 10px;
 }
 
-.message::after, div::before {
-  content: "";
-  position: absolute;
-  left: 100%;
-  bottom: .5em;
-  width: 1.8em;
-  height: 1.8em;
-  border: .5em solid white;
-  border-radius: 50%;
-  background: blue;
+.message .author {
+  font-weight: bold;
 }
 
-.message::before {
-  border-top: none;
-  height: .9em;
-  border-radius: 0 0 50% 50% / 0 0 100% 100%;
-  background: silver;
-  border-color: silver;
-  margin-left: -.9em;
+.message .text {
+
+}
+
+
+
+ .msg-bottom {
+        border-top: 1px solid #ccc;
+        position: relative;
+        height: 11%;
+        background-color: rgb(239 239 239);
+    }
+.bubbleWrapper {
+    display: flex;
+}
+
+.text_message {
+    width: 65%;
+}
+
+.photo {
+    width: 35%
 }

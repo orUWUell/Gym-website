@@ -2,14 +2,37 @@
 {% block title %}
     Главная
 {% endblock %}
+
 {% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/css/main.css'%}" type="text/css">
+    <table>
+        <tr>
+        <td>
     {% for i in rooms %}
+
         <article class="news-item">
-            <h2>{{ i.name }}</h2>
-            <p>{{ i.question|slice:':255' }}...</p>
-            <p>{{ i.creator }}</p>
+          <div class="card">
+    <div class="card__body">
+      <span class="tag tag-blue">Technology</span>
+      <h4>{{ i.name }}</h4>
+      <p>{{ i.question|slice:':255' }}..</p>
+    </div>
+    <div class="card__footer">
+      <div class="user">
+        <div class="user__info">
+          <h5>{{ i.creator }}</h5>
             <a href="{% url 'chat' i.id %}">читать далее</a>
+          <small>2h ago</small>
+        </div>
+      </div>
+    </div>
+          </div>
         </article>
 
     {% endfor %}
+    </td>
+        </tr>
+    </table>
+    dasd
 {% endblock %}

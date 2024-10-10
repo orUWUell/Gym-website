@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.encoding import force_bytes, force_str
@@ -18,8 +18,12 @@ from .models import User
 
 
 @login_required
-def profile_view(request):
-    return render(request, 'users/profile.html')
+def profile_view(request, pk):
+    user = get_object_or_404(get_user_model(), id=pk)
+    context = {
+        'profile': user,
+    }
+    return render(request, 'users/profile.html', context)
 
 
 def register(request):
