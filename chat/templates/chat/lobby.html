@@ -5,23 +5,23 @@
     {% load static %}
      <link rel="stylesheet" href="{% static 'chat/css/chat.css'%}" type="text/css">
     {% csrf_token %}
-    <form id="form" method="post" action="create">
-        <input type="text" name="message" id="message"/>
-        <input type="submit">
-    </form>
+
 
     <h1>{{ room }}</h1>
     <p>{{ room.question }}</p>
     <h3>{{ room.creator }}</h3>
     {% for i in messages %}
         <div class="message">
-        <p>{{ i.author.username }}</p>
+        <a href="{% url 'profile' i.author.id %}">{{ i.author.username }}</a>
         <p>{{ i }}</p>
         </div>
     {% endfor %}
     {{ room.id|json_script:"room-id" }}
     <div id="messages"></div>
-
+    <form id="form" method="post" action="create">
+        <input type="text" name="message" id="message"/>
+        <input type="submit">
+    </form>
     <script type="text/javascript">
         const roomId = JSON.parse(document.getElementById('room-id').textContent)
 
@@ -36,8 +36,8 @@
             if(data.type === 'chat'){
                 let messages = document.getElementById('messages')
 
-                messages.insertAdjacentHTML('beforeend', `<div>
-                                        <p>{{ user.username }}</p>
+                messages.insertAdjacentHTML('beforeend', `<div class='message'>
+                                        <a href="{% url 'profile' user.id %}">{{ user.username }}</a>
                                         <p>${data.message}</p>
                                     </div>`)
             }

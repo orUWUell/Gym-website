@@ -12,7 +12,7 @@
     <ul id="navbar">
     <li><a href="{% url 'homepage' %}">Главная</a></li>
     {% if user.is_authenticated %}
-    <li><a href="{% url 'profile' %}">Профиль</a></li>
+    <li><a href="{% url 'profile' user.id %}">Профиль</a></li>
     <li><a href="{% url 'create' %}">Создать тему</a></li>
         {% else %}
         <li><a href="{% url 'register' %}">Регистрация</a></li>

@@ -152,7 +152,7 @@ EMAIL_USE_TLS = True
 
 PASSWORD_RESET_TIMEOUT = 14400
 
-LOGIN_REDIRECT_URL = reverse_lazy("profile")
+LOGIN_REDIRECT_URL = reverse_lazy("homepage")
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
