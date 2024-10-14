@@ -3,7 +3,8 @@
 {% endblock %}
 {% block content %}
     {% load static %}
-     <link rel="stylesheet" href="{% static 'chat/css/chat.css'%}" type="text/css">
+    <link rel="stylesheet" href="{% static 'chat/css/chat.css'%}" type="text/css">
+
     {% csrf_token %}
 
 
@@ -23,46 +24,7 @@
         <input type="submit">
     </form>
     {{ request.user.username|json_script:"json-username" }}
-    <script type="text/javascript">
-        const roomId = JSON.parse(document.getElementById('room-id').textContent)
-        const userName = JSON.parse(document.getElementById('json-username').textContent);
+    {{ request.user.id|json_script:"json-id" }}
+    <script src="{% static 'chat/js/lobby.js' %}" type="text/javascript"></script>
 
-        let url = `ws://${window.location.host}/ws/chat/${roomId}/`
-
-        const chatSocket = new WebSocket(url)
-
-        chatSocket.onmessage = function(e){
-            let data = JSON.parse(e.data)
-            console.log('Data:', data)
-
-            if(data.type === 'chat'){
-                let messages = document.getElementById('messages')
-                messages.insertAdjacentHTML('beforeend',
-                                    `<div class='message'>
-                                        <a href="{% url 'profile' user.id %}" id='now_message'>${data.author}</a>
-                                        <p>${data.message}</p>
-                                    </div>`)
-            }
-        }
-
-        let form = document.getElementById('form')
-        form.addEventListener('submit', (e)=> {
-            e.preventDefault()
-            let message = e.target.message.value
-            chatSocket.send(JSON.stringify({
-                'message':message,
-                'username': userName
-            }))
-            form.reset()
-        })
-
-        $.ajax({
-            type: "POST",
-            url: "{% url 'chat' room.id %}",
-            data: {
-                message: $('#message').val(),
-                csrf
-        }})
-
-    </script>
 {% endblock %}
