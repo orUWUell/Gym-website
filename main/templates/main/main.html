@@ -7,11 +7,11 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}" type="text/css">
     <table>
-        <tr>
-        <td>
     {% for i in rooms %}
-
-        <article class="news-item">
+        {% cycle 1 2 3 4 as row silent %}
+        {% if row == 1 %}<tr>{% endif %}
+    <td>
+    <article class="news-item">
           <div class="card">
     <div class="card__body">
       <span class="tag tag-blue">Technology</span>
@@ -29,10 +29,8 @@
     </div>
           </div>
         </article>
-
-    {% endfor %}
     </td>
-        </tr>
+    {% if row == 4 %}</tr>{% endif %}
+    {% endfor %}
     </table>
-    dasd
 {% endblock %}
