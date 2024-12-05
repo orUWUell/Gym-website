@@ -2,7 +2,6 @@
         const userName = JSON.parse(document.getElementById('json-username').textContent)
         const userId = JSON.parse(document.getElementById('json-id').textContent)
 
-
         let url = `ws://${window.location.host}/ws/chat/${roomId}/`
 
         const chatSocket = new WebSocket(url)

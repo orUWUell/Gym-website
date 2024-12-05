@@ -1,14 +1,26 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 
-from chat.models import Room
+from chat.models import Room, Genre
+from .forms import GenreForm
 
 
 def main_view(request):
+    get = request.GET
+    if get.get('q'):
+        rooms = Room.objects.filter(name__icontains=get['q'])
+    elif get:
+        rooms = Room.objects.filter(genres__name__in=get).distinct()
+    else:
+        rooms = Room.objects.all()
+    genre_form = GenreForm()
     context = {
-        'rooms': Room.objects.all()
+        'rooms': rooms,
+        'form': genre_form,
     }
+
     return render(request, 'main/main.html', context)
+
 
 
 class SearchView(ListView):

@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}" type="text/css">
     <table>
     {% for i in rooms %}
-        {% cycle 1 2 3 as row silent %}
-        {% if row == 1 %}<tr>{% endif %}
+        {% cycle 1 2 3 as column_rooms %}
+        {% if column_rooms == 1 %}<tr>{% endif %}
     <td>
     <article class="news-item">
           <div class="card">
     <div class="card__body">
         <div class="genres_div">
         {% for genre in i.genres.all %}
-            {% cycle 1 2 3 4 as row silent %}
-            {% if row < 4 %}
+            {% cycle 1 2 3 4 as column_genres silent %}
+            {% if column_genres  < 4 %}
                 <span class="tag tag-blue">{{ genre }}</span>
             {% else %}
 
@@ -41,7 +41,11 @@
           </div>
         </article>
     </td>
-    {% if row == 3 %}</tr>{% endif %}
+    {% if column_rooms == 3 %}</tr>{% endif %}
     {% endfor %}
     </table>
+    <form action="{% url 'homepage' %}" method="get" name="genres">
+    {{ form.as_p }}
+    <button type="submit">Найти</button>
+    </form>
 {% endblock %}
