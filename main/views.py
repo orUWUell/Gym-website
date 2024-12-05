@@ -4,7 +4,6 @@ from django.views.generic import ListView
 from chat.models import Room
 
 
-
 def main_view(request):
     context = {
         'rooms': Room.objects.all()

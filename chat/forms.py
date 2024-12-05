@@ -1,8 +1,12 @@
 from .models import Room
-from django.forms import ModelForm
+from django import forms
 
 
-class RoomForm(ModelForm):
+class RoomForm(forms.ModelForm):
     class Meta:
         model = Room
-        fields = ['name', 'question']
+        fields = ['name', 'question', 'genres']
+        widgets = {
+            'question': forms.Textarea(),
+            'genres': forms.CheckboxSelectMultiple()
+        }

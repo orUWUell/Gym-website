@@ -4,20 +4,18 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
-
+class Genre(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    def __str__(self):
+        return self.name
 
 class Room(models.Model):
-    genres = (
-        ('Technology', 'Technology'),
-        ('Science', 'Science')
-            )
 
     name = models.CharField(max_length=255)
     question = models.TextField()
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-
-
-
+    genres = models.ManyToManyField(Genre, blank=True)
 
     def __str__(self):
         return self.name

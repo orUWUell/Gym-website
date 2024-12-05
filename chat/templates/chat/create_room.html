@@ -8,6 +8,7 @@
     {% csrf_token %}
     {{ form.name }}<br>
         {{ form.question }}
+    {{ form.genres }}
     {% if errors %}
         <p>Заполните форму правильно</p>
     {% endif %}

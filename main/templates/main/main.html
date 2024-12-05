@@ -8,13 +8,24 @@
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}" type="text/css">
     <table>
     {% for i in rooms %}
-        {% cycle 1 2 3 4 as row silent %}
+        {% cycle 1 2 3 as row silent %}
         {% if row == 1 %}<tr>{% endif %}
     <td>
     <article class="news-item">
           <div class="card">
     <div class="card__body">
-      <span class="tag tag-blue">Technology</span>
+        <div class="genres_div">
+        {% for genre in i.genres.all %}
+            {% cycle 1 2 3 4 as row silent %}
+            {% if row < 4 %}
+                <span class="tag tag-blue">{{ genre }}</span>
+            {% else %}
+
+
+            {% endif %}
+
+        {% endfor %}
+        </div>
       <h4>{{ i.name }}</h4>
       <p>{{ i.question|slice:':255' }}..</p>
     </div>
@@ -30,7 +41,7 @@
           </div>
         </article>
     </td>
-    {% if row == 4 %}</tr>{% endif %}
+    {% if row == 3 %}</tr>{% endif %}
     {% endfor %}
     </table>
 {% endblock %}

@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 
-from .models import Room, Message
+from .models import Room, Message, Genre
 from .forms import RoomForm
 from django.views.generic import DetailView
 # Create your views here.
@@ -24,14 +24,18 @@ def chat_view(request, pk):
 def create_room(request):
     errors = False
     if request.method == 'POST':
-        room = Room(
-            name=request.POST['name'],
-            question=request.POST['question'],
-            creator=request.user
-        )
-        room.save()
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.creator = request.user
+            obj.save()
+            selected_genres = form.cleaned_data['genres']
+            for genre in selected_genres:
+                genre_obj = Genre.objects.get(name=str(genre))
+                obj.genres.add(genre_obj)
         return redirect(reverse_lazy("homepage"))
-    form = RoomForm()
+    else:
+        form = RoomForm()
     context = {
         'form': form,
         'errors': errors,
