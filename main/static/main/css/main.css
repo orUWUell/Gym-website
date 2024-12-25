@@ -18,8 +18,18 @@
   margin-block: 2rem;
   gap: 2rem;
 }
+.main_page {
+  display: inline-block;
+}
 
 
+
+.genres_checkboxes {
+  float: right;
+  display: inline-block;
+  position:relative;
+  width: 8%;
+}
 
 
 
@@ -31,8 +41,15 @@
   box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
   border-radius: 1em;
   background: #ECE9E6;
-background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+  background: linear-gradient(to right, #FFFFFF, #ECE9E6);
 
+}
+
+.articles_div {
+  float: left;
+  width: 92%;
+  position:relative;
+  display: inline-block;
 }
 
 .genres_div {

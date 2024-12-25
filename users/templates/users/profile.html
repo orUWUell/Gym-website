@@ -2,13 +2,28 @@
 
 {% block title %}
 {% endblock %}
-
+{% load static %}
 {% block content %}
-    <p><img src="{{ profile.profile_picture.url }}" width="150" height="150"></p>
-    <p>{{ profile.username }}</p>
-    {% if user == profile %}
-        <button class="btn btn-sm btn-outline-primary w-100" onclick="location.href='{% url 'password_change' %}'">Change password</button>
-        <button class="btn btn-sm btn-primary w-100 ml-2" onclick="location.href='{% url 'logout' %}?next={% url 'homepage' %}'">Logout</button>
-        <button class="btn btn-sm btn-outline-primary w-100" onclick="location.href='{% url 'edit_profile' user.id %}'">Update</button>
-    {% endif %}
+     <link rel="stylesheet" href="{% static 'users/css/profile.css' %}" type="text/css">
+
+  <div class="card">
+  <div class="imgBx">
+<!--     <img src="https://via.placeholder.com/500" alt=""> -->
+    <img src="{{ profile.profile_picture.url }}"/>
+  </div>
+  <div class="content">
+    <div class="details">
+      <h2>{{ profile.username }}<br><span>Senior UX/UI Designer</span></h2>
+      <div class="data">
+        <h3>342<br><span>Posts</span></h3>
+        <h3>120k<br><span>Followers</span></h3>
+        <h3>285<br><span>Following</span></h3>
+      </div>
+      <div class="actionBtn">
+        <button onclick="location.href='{% url 'password_change' %}'">Change password</button>
+        <button onclick="location.href='{% url 'edit_profile' user.id %}'">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

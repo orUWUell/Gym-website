@@ -5,10 +5,20 @@
 
 {% block content %}
     {% load static %}
+
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}" type="text/css">
+    <div class="main_page">
+    <div class="genres_checkboxes">
+
+    <form action="{% url 'homepage' %}" method="get" name="genres">
+    {{ form.as_p }}
+    <button type="submit">Найти</button>
+    </form>
+    </div>
+    <div class="articles_div">
     <table>
     {% for i in rooms %}
-        {% cycle 1 2 3 as column_rooms %}
+        {% cycle 1 2 3 as column_rooms silent %}
         {% if column_rooms == 1 %}<tr>{% endif %}
     <td>
     <article class="news-item">
@@ -16,11 +26,10 @@
     <div class="card__body">
         <div class="genres_div">
         {% for genre in i.genres.all %}
-            {% cycle 1 2 3 4 as column_genres silent %}
+            {% cycle 1 2 3 4 as column_genres %}
             {% if column_genres  < 4 %}
                 <span class="tag tag-blue">{{ genre }}</span>
             {% else %}
-
 
             {% endif %}
 
@@ -44,8 +53,7 @@
     {% if column_rooms == 3 %}</tr>{% endif %}
     {% endfor %}
     </table>
-    <form action="{% url 'homepage' %}" method="get" name="genres">
-    {{ form.as_p }}
-    <button type="submit">Найти</button>
-    </form>
+    </div>
+    </div>
+
 {% endblock %}

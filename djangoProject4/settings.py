@@ -155,7 +155,7 @@ PASSWORD_RESET_TIMEOUT = 14400
 
 LOGIN_REDIRECT_URL = reverse_lazy("homepage")
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
