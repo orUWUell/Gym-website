@@ -11,7 +11,13 @@
     <div class="genres_checkboxes">
 
     <form action="{% url 'homepage' %}" method="get" name="genres">
-    {{ form.as_p }}
+        {% for i in form %}
+            <label class="container">{{ i.label }}
+            {{ i }}
+            <span class="checkmark"></span>
+            </label>
+            <br>
+        {% endfor %}
     <button type="submit">Найти</button>
     </form>
     </div>
@@ -25,14 +31,8 @@
           <div class="card">
     <div class="card__body">
         <div class="genres_div">
-        {% for genre in i.genres.all %}
-            {% cycle 1 2 3 4 as column_genres %}
-            {% if column_genres  < 4 %}
+        {% for genre in i.genres.all|slice:":3" %}
                 <span class="tag tag-blue">{{ genre }}</span>
-            {% else %}
-
-            {% endif %}
-
         {% endfor %}
         </div>
       <h4>{{ i.name }}</h4>

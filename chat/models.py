@@ -16,7 +16,7 @@ class Room(models.Model):
     question = models.TextField()
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     genres = models.ManyToManyField(Genre, blank=True)
-
+    date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.name
 
@@ -24,7 +24,7 @@ class Room(models.Model):
 class Message(models.Model):
     text = models.TextField()
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.TextField()
     room = models.ForeignKey(Room,  on_delete=models.CASCADE)
 
     def __str__(self):

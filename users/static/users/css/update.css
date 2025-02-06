@@ -1,0 +1,73 @@
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.username,
+.description,
+textarea {
+    width: 97%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+    resize: none; /* Отключаем изменение размера */
+}
+
+.username:focus,
+.description:focus,
+textarea:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+.avatar-upload {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#avatar-preview {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #4CAF50;
+    width: 100%;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
+}

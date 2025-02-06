@@ -3,12 +3,46 @@
 {% block title %}
     update
 {% endblock %}
-
+{% load static %}
 {% block content %}
-    <h1>Обновить</h1>
+
+    <link rel="stylesheet" href="{% static 'users/css/update.css'%}" type="text/css">
+    <div class="container">
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-    <button>Обновить</button>
+        <h1>Редактирование профиля</h1>
+        <br>
+        <label>Аватарка:</label>
+        <div class="form-group">
+        {{ form.profile_picture }}
+        </div>
+        <div class="form-group">
+        <label for="name">Имя:</label>
+        {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label for="bio">О себе:</label>
+            {{ form.description }}
+        </div>
+        <button type="submit">Обновить</button>
+        <br>
     </form>
+    <button class='button' onclick="location.href='{% url 'change_password' %}'" id="change_password">Change password</button>
+    </div>
+
+                <script>const avatarInput = document.getElementById('avatar');
+const avatarPreview = document.getElementById('avatar-preview');
+
+avatarInput.addEventListener('change', function (event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      avatarPreview.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});</script>
+        {% csrf_token %}
+
 {% endblock %}

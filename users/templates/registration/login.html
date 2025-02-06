@@ -3,20 +3,41 @@
 {% block title %}
     hhu
 {% endblock %}
-
+{% load static %}
 {% block content %}
-    <form class="p-3 mt-3" method="post">
+    <link rel="stylesheet" href="{% static 'users/css/login.css'%}" type="text/css">
+
+    <div class="main">
+        <form class="p-3 mt-3" method="post">
             {% csrf_token %}
-            <div class="form-field d-flex align-items-center">
-                <span class="far fa-user"></span>
-                <input type="text" name="username" id="userName" placeholder="Username">
+        <h1>GeeksforGeeks</h1>
+        <h3>Enter your login credentials</h3>
+
+        <form action="">
+            <label for="first">
+                Username:
+            </label>
+            <input type="text" name="username" id="userName" placeholder="Username">
+
+            <label for="password">
+                Password:
+            </label>
+            <input type="password" name="password" id="pwd" placeholder="Password">
+
+            <div class="wrap">
+                <button type="submit">
+                    Submit
+                </button>
             </div>
-            <div class="form-field d-flex align-items-center">
-                <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password">
-            </div>
-            {{ form.errors }}
-            <button class="btn mt-3">Login</button>
         </form>
 
+        <p>Not registered?
+            <a href="{% url 'register' %}" style="text-decoration: none;">
+                Create an account
+            </a>
+        </p>
+
+        </form>
+    {{ form.errors }}
+    </div>
 {% endblock %}

@@ -5,39 +5,72 @@
     {% load static %}
      <link rel="stylesheet" href="{% static 'chat/css/chat.css'%}" type="text/css">
     {% csrf_token %}
-
-
-    <h1>{{ room }}</h1>
-    <p>{{ room.question }}</p>
-    <h3>{{ room.creator }}</h3>
+{#    <div id="room_description">#}
+{#    <h1>{{ room }}</h1>#}
+{#    <p>{{ room.question }}</p>#}
+{#    <a href="{% url 'profile' room.creator.id %}">{{ room.creator }}</a>#}
+{#    </div>#}
+    	<div class="conversation-info">
+		<div class="container">
+			<h1 class="conversation-title">{{ room }}</h1>
+			<p class="conversation-description">{{ room.question }}</p>
+			<div class="conversation-meta">
+				<span class="meta-item"><strong>Автор:</strong> <a href="{% url 'profile' room.creator.id %}">{{ room.create }}</a></span>
+				<span class="meta-item"><strong>Дата создания:</strong>{{ room.date }}</span>
+				<span class="meta-item"><strong>Сообщений:</strong> 123</span>
+			</div>
+		</div>
+	</div>
+    <div class="messages_div">
     {% for i in messages %}
         <div class="bubbleWrapper">
         <div class="photo">
             <p><img src="{{ i.author.profile_picture.url }}" width="150" height="150"></p>
         </div>
 		<div class="text_message">
-            <a href="{% url 'profile' i.author.id %}">{{ i.author.username }}</a>
-            <p>{{ i }}</p>
+            <h1><a href="{% url 'profile' i.author.id %}">{{ i.author.username }}</a></h1>
+            <p align="left" class="message">{{ i }}</p>
         </div>
-        </div><span class="other">{{ i.date }}</span>
+        </div><span class="date">{{ i.date }}</span>
          <hr>
     {% endfor %}
-    {{ room.id|json_script:"room-id" }}
     <div id="messages"></div>
-    <form id="form" method="post" action="create">
-        <input type="text" name="message" id="message"/>
-        <input type="submit">
+    	<div class="message-input-container">
+		<form id="form">
+			<div class="form-group">
+				<textarea id="message-input" name="message" placeholder="Введите ваше сообщение..." rows="4" required></textarea>
+			</div>
+			<div class="form-group">
+				<label for="file-input" class="file-upload-label">
+                    <span>Прикрепить файл</span>
+                    <input type="file" id="file-input" name="file" accept="image/*, .pdf, .doc, .docx">
+                </label>
+				<button type="submit" class="send-button">Отправить</button>
+			</div>
+		</form>
+	</div>
 
-    </form>
+	</div>
     {{ request.user.username|json_script:"json-username" }}
+        {{ room.id|json_script:"room-id" }}
+        {{ request.user.id|json_script:"user-id" }}
+        {{ request.user.profile_picture.url|json_script:"profile-picture" }}
     <script type="text/javascript">
         const roomId = JSON.parse(document.getElementById('room-id').textContent)
         const userName = JSON.parse(document.getElementById('json-username').textContent);
+        const userId = JSON.parse(document.getElementById('user-id').textContent)
+        const profilePicture = JSON.parse(document.getElementById('profile-picture').textContent);
 
         let url = `ws://${window.location.host}/ws/chat/${roomId}/`
 
         const chatSocket = new WebSocket(url)
-
+        var currentdate = new Date();
+        var today = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
         chatSocket.onmessage = function(e){
             let data = JSON.parse(e.data)
             console.log('Data:', data)
@@ -45,10 +78,19 @@
             if(data.type === 'chat'){
                 let messages = document.getElementById('messages')
                 messages.insertAdjacentHTML('beforeend',
-                                    `<div class='message'>
-                                        <a href="{% url 'profile' user.id %}" id='now_message'>${data.author}</a>
-                                        <p>${data.message}</p>
-                                    </div>`)
+                    `<div class="bubbleWrapper">
+        <div class="photo">
+            <p><img src="${data.profile_picture}" width="150" height="150"></p>
+        </div>
+		<div class="text_message">
+		{# КОСТЫЛЬЬЬЬ ОБРАТИ ВНИМАНИЕ И ПОЧИНИ НОРМАЛЬНО #}
+
+            <h1><a href="http://127.0.0.1:8000/users/profile/${data.userid}">${data.author}</a></h1>
+
+            <p align="left" class="message">${data.message}</p>
+        </div>
+        </div><span class="date">${today}</span>
+         <hr>`)
             }
         }
 
@@ -58,7 +100,10 @@
             let message = e.target.message.value
             chatSocket.send(JSON.stringify({
                 'message':message,
-                'username': userName
+                'username': userName,
+                'datetime': today,
+                'userid': userId,
+                'profile_picture': profilePicture
             }))
             form.reset()
         })
