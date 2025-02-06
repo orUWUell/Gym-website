@@ -1,4 +1,6 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, logout, login
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import redirect
@@ -7,14 +9,16 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib import messages
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
-from django.views import generic
-
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, CustomUserChangeForm
 from django.core.mail import EmailMessage
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
 from users.tokens import account_activation_token
 from .models import User
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    form_class = PasswordChangeForm
+    success_url = reverse_lazy('homepage')
 
 
 @login_required
@@ -87,9 +91,20 @@ def activate(request, uidb64, token):
 
     return redirect('homepage')
 
-class EditProfileView(generic.UpdateView):
-    model = get_user_model()
-    template_name = 'users/update.html'
-    fields = ['username', 'profile_picture']
-    success_url = reverse_lazy('homepage')
 
+def logout_view(request):
+    logout(request)
+    return redirect('homepage')
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        user_form = CustomUserChangeForm(request.POST or None, request.FILES or None, instance=current_user)
+        if user_form.is_valid():
+            user_form.save()
+            login(request, current_user)
+            return redirect('homepage')
+        return render(request, 'users/update.html', {'form': user_form})
+    else:
+        return redirect('login')

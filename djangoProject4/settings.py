@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'chat',
     'main',
     'users',
-    'multiselectfield',
 ]
 
 ASGI_APPLICATION = 'djangoProject4.asgi.application'

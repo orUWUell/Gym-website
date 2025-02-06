@@ -1,7 +1,6 @@
-
-
 .message {
   padding: 10px;
+
 }
 
 .message .author {
@@ -12,9 +11,12 @@
 
 }
 
+#room_description {
+    margin: 20px;
+    line-height: 2em;
+}
 
-
- .msg-bottom {
+.msg-bottom {
         border-top: 1px solid #ccc;
         position: relative;
         height: 11%;
@@ -22,12 +24,168 @@
     }
 .bubbleWrapper {
     display: flex;
+
 }
 
 .text_message {
-    width: 65%;
+    width: 80%;
 }
 
 .photo {
-    width: 35%
+    padding: 10px;
+}
+
+.message {
+    font-size: 20px;
+    word-break: break-word;
+}
+
+.date {
+    padding-left: 90%;
+}
+
+
+#message_input {
+    width: 50%;
+  height: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  border: 3px solid black;
+  border-radius: 25px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  resize: none;
+}
+
+.send {
+    -webkit-writing-mode: horizontal-tb !important;
+    -webkit-appearance: button;
+    border-color: rgb(216, 216, 216) rgb(209, 209, 209) rgb(186, 186, 186);
+    border-style: solid;
+    border-width: 1px;
+    padding: 1px 7px 2px;
+    text-rendering: auto;
+    color: initial;
+    display: inline-block;
+    text-align: start;
+    margin: 0;
+    font: 400 11px system-ui;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Стили для блока описания беседы */
+.conversation-info {
+    background-color: #fff;
+    padding: 20px;
+    border-bottom: 2px solid #28a745;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.conversation-title {
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.conversation-description {
+    font-size: 1rem;
+    margin: 0 0 15px 0;
+    color: #555;
+}
+
+.conversation-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+}
+
+.meta-item strong {
+    margin-right: 5px;
+    color: #333;
+}
+.message-input-container {
+    max-width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+textarea {
+    width: 97%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    resize: none; /* Запрещаем изменение размера */
+    min-height: 100px;
+}
+
+textarea:focus {
+    border-color: #28a745;
+    outline: none;
+}
+
+.file-upload-label {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload-label:hover {
+    background-color: #e9ecef;
+}
+
+.file-upload-label input[type="file"] {
+    display: none; /* Скрываем стандартный input */
+}
+
+.send-button {
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+    transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+    background-color: #218838;
 }

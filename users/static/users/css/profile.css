@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900");
 
+* {
+    font-family: Arial, sans-serif;
+}
 
 .card {
-
   width: 350px;
   height: 450px;
   background: #fff;
@@ -13,6 +15,13 @@
   left: 50%;
   transform: translate(-50% , -50%)
 }
+
+.logout_button {
+  position: absolute;
+  left: 70%;
+  margin-top: 540px;
+}
+
 .imgBx {
   position: absolute;
   left: 50%;
@@ -111,4 +120,8 @@
   border: 1px solid #999;
   color: #999;
   background: #fff;
+}
+
+.description {
+  word-break: break-word;
 }

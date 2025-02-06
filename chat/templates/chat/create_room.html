@@ -2,16 +2,39 @@
 
 {% block title %}
 {% endblock %}
-
+{% load static %}
 {% block content %}
-    <form method="post">
-    {% csrf_token %}
-    {{ form.name }}<br>
-        {{ form.question }}
-    {{ form.genres }}
-    {% if errors %}
+    <link rel="stylesheet" href="{% static 'chat/css/create_room.css'%}" type="text/css">
+    <div class="container">
+		<h1>Создать новую беседу</h1>
+		<form id="create-thread-form" method="post">
+        {% csrf_token %}
+			<div class="form-group">
+				<label for="thread-title">Название беседы:</label>
+				{{ form.name }}
+            </div>
+
+				<div class="form-group">
+					<label for="thread-description">Описание беседы:</label>
+					{{ form.question }}
+				</div>
+
+				<div class="form-group">
+					<label>Жанры:</label>
+					<div class="genres">
+						{% for i in form.genres %}
+                            <label for="">{{ i }}</label>
+                        {% endfor %}
+					</div>
+				</div>
+
+				<button type="submit">Создать беседу</button>
+		</form>
+	</div>
+
+
+        {% if errors %}
         <p>Заполните форму правильно</p>
     {% endif %}
-    <button type="submit">ОК</button>
-    </form>
+
 {% endblock %}

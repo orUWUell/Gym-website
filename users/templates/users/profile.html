@@ -8,22 +8,22 @@
 
   <div class="card">
   <div class="imgBx">
-<!--     <img src="https://via.placeholder.com/500" alt=""> -->
+
     <img src="{{ profile.profile_picture.url }}"/>
   </div>
   <div class="content">
     <div class="details">
-      <h2>{{ profile.username }}<br><span>Senior UX/UI Designer</span></h2>
-      <div class="data">
-        <h3>342<br><span>Posts</span></h3>
-        <h3>120k<br><span>Followers</span></h3>
-        <h3>285<br><span>Following</span></h3>
-      </div>
+      <h2>{{ profile.username }}<br>
+          <span class="description">{{ profile.description }}</span></h2>
+
+        {% if profile == user %}
       <div class="actionBtn">
-        <button onclick="location.href='{% url 'password_change' %}'">Change password</button>
-        <button onclick="location.href='{% url 'edit_profile' user.id %}'">Update</button>
+        <button onclick="location.href='{% url 'logout_profile' %}'">Log out</button>
+        <button onclick="location.href='{% url 'update_user' %}'">Update</button>
       </div>
     </div>
   </div>
 </div>
+
+     {% endif %}
 {% endblock %}

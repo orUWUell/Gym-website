@@ -24,10 +24,14 @@ class ChatConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         author = text_data_json['username']
+        datetime = text_data_json['datetime']
+        userid = text_data_json['userid']
+        profile_picture = text_data_json['profile_picture']
+        print(datetime)
         message_object = Message.objects.create(
             text=message,
             author=self.scope['user'],
-            date=datetime.now(),
+            date=datetime,
             room=Room.objects.get(pk=int(self.room_id)),
 
         )
@@ -37,6 +41,8 @@ class ChatConsumer(WebsocketConsumer):
                 'type': 'chat_message',
                 'message': message,
                 'author': author,
+                'profile_picture': profile_picture,
+                'userid': userid,
             }
         )
 
@@ -47,4 +53,6 @@ class ChatConsumer(WebsocketConsumer):
             'type': 'chat',
             'message': event['message'],
             'author': event['author'],
+            'profile_picture': event['profile_picture'],
+            'userid': event['userid'],
         }))
