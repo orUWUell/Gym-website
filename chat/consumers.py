@@ -20,14 +20,14 @@ class ChatConsumer(WebsocketConsumer):
 
         self.accept()
 
-    def receive(self, text_data):
+    def receive(self, text_data, *args):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         author = text_data_json['username']
         datetime = text_data_json['datetime']
         userid = text_data_json['userid']
         profile_picture = text_data_json['profile_picture']
-        print(datetime)
+
         message_object = Message.objects.create(
             text=message,
             author=self.scope['user'],
@@ -47,8 +47,6 @@ class ChatConsumer(WebsocketConsumer):
         )
 
     def chat_message(self, event):
-
-
         self.send(text_data=json.dumps({
             'type': 'chat',
             'message': event['message'],

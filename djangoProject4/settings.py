@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'chat',
     'main',
     'users',
+    'tree'
 ]
 
 ASGI_APPLICATION = 'djangoProject4.asgi.application'

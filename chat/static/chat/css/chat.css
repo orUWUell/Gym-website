@@ -16,6 +16,25 @@
     line-height: 2em;
 }
 
+.delete-link {
+    color: #ff4d4d;
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.delete-link:hover {
+    color: #cc0000;
+    text-decoration: underline;
+}
+
+.image_msg {
+    max-width: 30%;
+    max-height: 30%;
+}
+
 .msg-bottom {
         border-top: 1px solid #ccc;
         position: relative;

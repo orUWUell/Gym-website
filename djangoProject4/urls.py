@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import main.urls, users.urls, chat.urls
+import main.urls, users.urls, chat.urls, tree.urls
 from django.conf.urls.static import static
 from . import settings
 
@@ -26,4 +26,5 @@ urlpatterns = [
     path('', include(main.urls)),
     path('users/', include(users.urls)),
     path('chat/', include(chat.urls)),
+    path('tree/', include(tree.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
