@@ -21,21 +21,6 @@ def chat_view(request, pk):
     return render(request, 'chat/lobby.html', context)
 
 
-
-
-def delete_message(request, pk, user_id):
-    if request.method == 'GET':
-        message = Message.objects.get(id=pk)
-        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-            if message.author.id == user_id:
-                message.delete()
-                return JsonResponse({'success': True})
-            else:
-                return JsonResponse({'success': False})
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-
 @login_required
 def create_room(request):
     errors = False

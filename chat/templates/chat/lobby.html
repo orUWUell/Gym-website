@@ -17,7 +17,8 @@
 		</div>
 	</div>
     <div class="messages_div">
-    {% for i in messages %}
+    <form id="delete-form">
+        {% for i in messages %}
         <div id="message-{{ i.id }}">
         <div class="bubbleWrapper">
         <div class="photo">
@@ -34,13 +35,16 @@
             {% endif %}
         </div>
         {% if i.author.id == request.user.id %}
-            <button class="delete-link" onclick="deleteMessage({{ i.id }}, {{ request.user.id }})">Удалить</button>
+
+            <button type="submit" class="delete-link" onclick="delete_button_func({{ i.id }})">Удалить</button>
+
         {% endif %}
         <p></p>
         </div><span class="date">{{ i.date }}</span>
          <hr>
         </div>
     {% endfor %}
+    </form>
     <div id="messages"></div>
     	<div class="message-input-container">
 		<form id="form">
@@ -60,6 +64,4 @@
         {{ request.user.id|json_script:"user-id" }}
         {{ request.user.profile_picture.url|json_script:"profile-picture" }}
     <script type="text/javascript" src="{% static 'chat/js/lobby.js' %}"></script>
-    <script type="text/javascript" src="{% static 'chat/js/delete_message.js' %}"></script>
-
 {% endblock %}
