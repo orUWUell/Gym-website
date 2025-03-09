@@ -31,6 +31,7 @@ class Message(models.Model):
     date = models.TextField()
     room = models.ForeignKey(Room,  on_delete=models.CASCADE)
     file = models.FileField(upload_to='files/', blank=True, null=True)
+    file_name = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to='images/message_pictures', blank=True, null=True)
 
     @property

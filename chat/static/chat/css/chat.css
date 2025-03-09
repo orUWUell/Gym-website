@@ -208,3 +208,54 @@ textarea:focus {
 .send-button:hover {
     background-color: #218838;
 }
+
+.trash-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: 16px;
+  color: #fff;
+  margin-top: 20px;
+  height: 35px;
+  background-color: #ff4444;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.trash-button:hover {
+  background-color: #cc0000;
+}
+
+.trash-icon {
+  fill: #fff;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  transition: transform 0.3s ease; /* Добавляем плавный переход для анимации */
+}
+
+/* Анимация при наведении */
+.trash-button:hover .trash-icon {
+  animation: shake 0.5s ease-in-out infinite; /* Применяем анимацию */
+}
+
+/* Ключевые кадры для анимации "тряски" */
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
