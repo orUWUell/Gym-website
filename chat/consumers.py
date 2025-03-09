@@ -40,7 +40,7 @@ class ChatConsumer(WebsocketConsumer):
             async_to_sync(self.channel_layer.group_send)(
                 self.room_id,
                 {
-                    'type': 'chat_message',
+                    'type': 'send_message',
                     'message': message,
                     'author': author,
                     'profile_picture': profile_picture,
