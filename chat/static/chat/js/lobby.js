@@ -52,8 +52,11 @@
           if (data.type === 'send') {
               let messages = document.getElementById('messages')
               let file
-              if (data.file_name) {
-                file = `&#x1F4CE; <a class="cursor-pointer italic hover:underline" href="${data.file}" download>${data.file_name}</a>`
+              if (data.file) {
+                console.log(data.file)
+                if (data.file_type === 'image'){
+                    file = `<p><img class="image_msg" src="${data.file}" alt=""></p>`
+                }  else {file = `&#x1F4CE; <a class="cursor-pointer italic hover:underline" href="${data.file}" download>kjhlkjhkjh</a>`}
               } else file = ``
               messages.insertAdjacentHTML('beforeend',
                   `
@@ -63,9 +66,7 @@
             <p><img src="${data.profile_picture}" width="150" height="150"></p>
         </div>
 		<div class="text_message">
-
             <h1><a href="http://127.0.0.1:8000/users/profile/${data.userid}">${data.author}</a></h1>
-
             <p align="left" class="message">${data.message}</p>
             ${file}
         </div>
@@ -118,6 +119,7 @@
           // Сбрасываем форму после отправки
           form.reset();
       });
+
       // ajax связь
       $.ajax({
           type: "POST",

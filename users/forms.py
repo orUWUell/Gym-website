@@ -12,22 +12,6 @@ class UserRegistrationForm(UserCreationForm):
         model = get_user_model()
         fields = ['username', 'email', 'password1', 'password2']
 
-    # def save(self, commit=True):
-    #     user = super(UserRegistrationForm, self).save(commit=False)
-    #     user.email = self.cleaned_data['email']
-    #     if commit:
-    #         user.save()
-    #
-    #     return user
-
-#
-# class UserUpdateForm(UserCreationForm):
-#     class Meta:
-#         model = get_user_model()
-#         fields = ['username', 'profile_picture', 'description']
-#         widgets = {
-#             'description': forms.Textarea(attrs={'class': 'description',
-#                                                  'placeholder': 'Description',}),
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:

@@ -3,7 +3,7 @@ from datetime import datetime
 from django.core.files.base import ContentFile
 from django.contrib.auth.decorators import login_required
 import base64
-from .models import Message, Room
+from .models import Message, Room, File
 from channels.generic.websocket import WebsocketConsumer
 from asgiref.sync import async_to_sync
 # from models import Message
@@ -23,6 +23,7 @@ class ChatConsumer(WebsocketConsumer):
 
     def receive(self, text_data, *args):
         text_data_json = json.loads(text_data)
+
         if text_data_json['action'] == 'send':
             message = text_data_json['message']
             author = text_data_json['username']
@@ -30,10 +31,11 @@ class ChatConsumer(WebsocketConsumer):
             userid = text_data_json['user_id']
             profile_picture = text_data_json['profile_picture']
             file = text_data_json['file']
-            file_name = ''
-            file_url = ''
+            file_url = None
+            file_name = None
+            file_type = None
             if file:
-                file_name, file, file_type = file['name'], file['bytes'].split(',')[1], file['type']
+                file_name, file, file_type = file['name'], file['bytes'].split(',')[1], file['type'].split('/')[0]
                 file_name = file_name.split('/')[-1]
                 file_name = file_name.split(';')[0]
                 file = base64.b64decode(file)
@@ -43,12 +45,13 @@ class ChatConsumer(WebsocketConsumer):
                     author=self.scope['user'],
                     date=date_time,
                     room=Room.objects.get(pk=int(self.room_id)),
-                    file=file,
-                    file_name=file_name
-
-
+                    file=File.objects.create(
+                        file=file,
+                        file_name=file_name,
+                        file_type=file_type,
+                    ),
                 ).id
-                file_url = Message.objects.get(pk=message_id).file.url
+                file_url = Message.objects.get(pk=message_id).file.file.url
             else:
                 message_id = Message.objects.create(
                     text=message,
@@ -66,8 +69,9 @@ class ChatConsumer(WebsocketConsumer):
                     'profile_picture': profile_picture,
                     'userid': userid,
                     'message_id': message_id,
+                    'file': file_url,
                     'file_name': file_name,
-                    'file': file_url
+                    'file_type': file_type,
                 }
             )
         if text_data_json['action'] == 'delete':
@@ -92,9 +96,9 @@ class ChatConsumer(WebsocketConsumer):
             'profile_picture': event['profile_picture'],
             'userid': event['userid'],
             'message_id': event['message_id'],
-            'file_name': event['file_name'],
             'file': event['file'],
-
+            'file_name': event['file_name'],
+            'file_type': event['file_type'],
         }))
 
 

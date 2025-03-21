@@ -8,18 +8,17 @@
 
   <div class="card">
   <div class="imgBx">
-
     <img src="{{ profile.profile_picture.url }}"/>
   </div>
   <div class="content">
     <div class="details">
-      <h2>{{ profile.username }}<br>
-          <span class="description">{{ profile.description }}</span></h2>
+      <h2>{{ profile.username }}<br><br>
+          <span class="description">{{ profile.description }}</span></h2><br>
 
         {% if profile == user %}
       <div class="actionBtn">
-        <button onclick="location.href='{% url 'logout_profile' %}'">Log out</button>
-        <button onclick="location.href='{% url 'update_user' %}'">Update</button>
+        <button onclick="location.href='{% url 'logout_profile' %}'">Выйти</button>
+        <button onclick="location.href='{% url 'update_user' %}'">Редактировать</button>
       </div>
     </div>
   </div>

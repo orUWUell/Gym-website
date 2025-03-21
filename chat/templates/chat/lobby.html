@@ -10,9 +10,8 @@
 			<h1 class="conversation-title">{{ room }}</h1>
 			<p class="conversation-description">{{ room.question }}</p>
 			<div class="conversation-meta">
-				<span class="meta-item"><strong>Автор:</strong> <a href="{% url 'profile' room.creator.id %}">{{ room.create }}</a></span>
+				<span class="meta-item"><strong>Автор:</strong> <a href="{% url 'profile' room.creator.id %}">{{ room.creator }}</a></span>
 				<span class="meta-item"><strong>Дата создания:</strong>{{ room.date }}</span>
-				<span class="meta-item"><strong>Сообщений:</strong> 123</span>
 			</div>
 		</div>
 	</div>
@@ -27,11 +26,12 @@
 		<div class="text_message">
             <h1><a href="{% url 'profile' i.author.id %}">{{ i.author.username }}</a></h1>
             <p align="left" class="message">{{ i.text }}</p>
-            {% if i.image %}
-                <p><img class="image_msg" src="{{ i.image.url }}" alt=""></p>
-            {% endif %}
             {% if i.file %}
-            &#x1F4CE; <a class="cursor-pointer italic hover:underline" href="{{ i.file.url }}" download>{{ i.file_name }}</a>
+                {% if i.file.file_type == 'image' %}
+                    <p><img class="image_msg" src="{{ i.file.file.url }}" alt=""></p>
+                {% else %}
+                    &#x1F4CE; <a class="cursor-pointer italic hover:underline" href="{{ i.file.file.url }}" download>{{ i.file.file_name }}</a>
+                {% endif %}
             {% endif %}
         </div>
         {% if i.author.id == request.user.id %}
@@ -40,13 +40,12 @@
   </svg>
   Удалить</button>
         {% endif %}
-        <p></p>
         </div><span class="date">{{ i.date }}</span>
          <hr>
         </div>
     {% endfor %}
-    </div>
     <div id="messages"></div>
+    </div>
     </form>
     	<div class="message-input-container">
 		<form id="form">
@@ -59,7 +58,6 @@
 			</div>
 		</form>
 	</div>
-
 	</div>
     {{ request.user.username|json_script:"json-username" }}
         {{ room.id|json_script:"room-id" }}

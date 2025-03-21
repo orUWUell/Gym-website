@@ -10,17 +10,17 @@
     <div class="main">
         <form class="p-3 mt-3" method="post">
             {% csrf_token %}
-        <h1>GeeksforGeeks</h1>
-        <h3>Enter your login credentials</h3>
+        <h1>Войти</h1>
+        <h3>Введите данные</h3>
 
         <form action="">
             <label for="first">
-                Username:
+                Имя пользователя:
             </label>
             <input type="text" name="username" id="userName" placeholder="Username">
 
             <label for="password">
-                Password:
+                Пароль:
             </label>
             <input type="password" name="password" id="pwd" placeholder="Password">
 
@@ -31,13 +31,18 @@
             </div>
         </form>
 
-        <p>Not registered?
+        <p>Нет профиля?
             <a href="{% url 'register' %}" style="text-decoration: none;">
-                Create an account
+                Зарегистрироваться
             </a>
         </p>
 
         </form>
-    {{ form.errors }}
+        <br>
+        <br>
+        <br>
+    {% if form.errors %}
+        <p>Неверный логин или пароль</p>
+    {% endif %}
     </div>
 {% endblock %}

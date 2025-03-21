@@ -43,7 +43,7 @@
         <div class="user__info">
           <h5>{{ i.creator }}</h5>
             <a href="{% url 'chat' i.id %}">читать далее</a>
-          <small>2h ago</small>
+          <small>{{ i.date }}</small>
         </div>
       </div>
     </div>
